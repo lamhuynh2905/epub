@@ -713,8 +713,25 @@ class EPub extends EventEmitter {
             if (!(this.manifest[id]['media-type'] == "application/xhtml+xml" || this.manifest[id]['media-type'] == "image/svg+xml")) {
                 return callback(new Error("Invalid mime type for chapter"));
             }
-
-            this.zip.readFile(this.manifest[id].href, (function (err, data) {
+            
+            let path = this.manifest[id].href;
+            let indexHtml = pathHtml.indexOf('.html#');
+            let indexHtm = pathHtml.indexOf('.htm#');
+            let indexXHtml = pathHtml.indexOf('.xhtml#');
+            let indexXHtm = pathHtml.indexOf('.xhtm#');
+            if (indexHtml != -1) {
+                path = path.substring(0, indexHtml + 5);
+            }
+            if (indexHtm != -1) {
+                path = path.substring(0, indexHtm + 4);
+            }
+            if (indexXHtml != -1) {
+                path = path.substring(0, indexXHtml + 6);
+            }
+            if (indexXHtm != -1) {
+                path = path.substring(0, indexXHtm + 5);
+            }
+            this.zip.readFile(path, (function (err, data) {
                 if (err) {
                     callback(new Error("Reading archive failed"));
                     return;
