@@ -715,10 +715,10 @@ class EPub extends EventEmitter {
             }
             
             let path = this.manifest[id].href;
-            let indexHtml = pathHtml.indexOf('.html#');
-            let indexHtm = pathHtml.indexOf('.htm#');
-            let indexXHtml = pathHtml.indexOf('.xhtml#');
-            let indexXHtm = pathHtml.indexOf('.xhtm#');
+            let indexHtml = path.indexOf('.html#');
+            let indexHtm = path.indexOf('.htm#');
+            let indexXHtml = path.indexOf('.xhtml#');
+            let indexXHtm = path.indexOf('.xhtm#');
             if (indexHtml != -1) {
                 path = path.substring(0, indexHtml + 5);
             }
